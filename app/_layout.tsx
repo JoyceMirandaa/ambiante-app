@@ -1,15 +1,17 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 import { useState } from 'react';
-import { SafeAreaView, View, StyleSheet, Image, Text, Dimensions, Pressable, Modal, TextInput } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Image, Text, useWindowDimensions, Pressable, Modal, TextInput, ScrollView } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
-import CardSlider from './src/cards';
-import CardSlider2 from './src/cards 2';
+import CardSlider from './components/cards';
+import CardSlider2 from './components/cards 2';
 import { StatusBar } from 'expo-status-bar';
 
 
 export const App = () => {
-
+  const { width } = useWindowDimensions();
+  const imageWidth = width;
+  const imageHeight = width * 0.3;
   const [menuAberto, setMenuAberto] = useState(false);
   const [perfilAberto, setPerfilAberto] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -17,7 +19,7 @@ export const App = () => {
   const Item = ({item}: {item: {image: string}}) => {
     return (
       <View style={styles.banner}>
-        <Image source={{uri: item.image}} style={{width: 400, height: 300}} />
+        <Image source={{uri: item.image}} style={{width: imageWidth, height: imageHeight}} />
       </View>
     );
   };
@@ -44,6 +46,8 @@ export const App = () => {
   ];
 
   return (
+    <ScrollView showsVerticalScrollIndicator={true}>
+       
     <SafeAreaView  style={[
         styles.container,
         darkMode && styles.containerDark,
@@ -100,8 +104,8 @@ export const App = () => {
       <Carousel
         data={carousel}
         renderItem={Item}
-        width={400}
-        height={220}
+        width={imageWidth}
+        height={imageHeight}
         loop
         autoPlay
         mode="parallax"
@@ -112,7 +116,6 @@ export const App = () => {
       />
     </View>
     
-   
     {/* MODAL PERFIL */}
     <Modal transparent visible={perfilAberto} animationType="fade">
       <View style={styles.modalFundo}>
@@ -155,17 +158,17 @@ export const App = () => {
       </View>
     </Modal>
       
-      <View>
-      <Text style={styles.tituloCard}>Produtos</Text>
-      <CardSlider darkMode={darkMode}/>
-      </View>
-
        <View>
-      <Text style={styles.tituloCard}>Produtos</Text>
-      <CardSlider2 darkMode={darkMode}/>
-      </View>
-    </SafeAreaView>
+          <Text style={styles.tituloCard}>Produtos</Text>
+          <CardSlider darkMode={darkMode}/>
+        </View>
 
+        <View>
+          <Text style={styles.tituloCard}>Produtos</Text>
+          <CardSlider2 darkMode={darkMode}/>
+        </View>
+    </SafeAreaView>
+    </ScrollView>
     
   );
   function MudarTema() {
@@ -326,6 +329,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 0,
   },
+  imagem: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 export default App;
