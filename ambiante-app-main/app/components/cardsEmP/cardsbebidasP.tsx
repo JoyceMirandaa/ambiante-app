@@ -5,9 +5,11 @@ import {
   StyleSheet,
   FlatList,
   useWindowDimensions,
+  Dimensions,
   Image,
   TouchableOpacity,
 } from 'react-native';
+
 
 const data: CardItem[] = [
   { id: '1', title: 'Leite 1L', image: require('../imgP/leite.jpeg'), valor: 2.99, },
@@ -16,15 +18,7 @@ const data: CardItem[] = [
   { id: '4', title: 'Leite 1L', image: require('../imgP/leite.jpeg'), valor: 2.99, },
   { id: '5', title: 'Arroz 5kg', image: require('../imgP/arroz.jpg'), valor: 5.0, },
   { id: '6', title: 'Feijão 1kg', image: require('../imgP/feijao.jpg'), valor: 6.0, },
-  { id: '7', title: 'Leite 1L', image: require('../imgP/leite.jpeg'), valor: 2.99, },
-  { id: '8', title: 'Arroz 5kg', image: require('../imgP/arroz.jpg'), valor: 5.0, },
-  { id: '9', title: 'Feijão 1kg', image: require('../imgP/feijao.jpg'), valor: 6.0, },
-  { id: '10', title: 'Leite 1L', image: require('../imgP/leite.jpeg'), valor: 2.99, },
-  { id: '11', title: 'Arroz 5kg', image: require('../imgP/arroz.jpg'), valor: 5.0, },
-  { id: '12', title: 'Feijão 1kg', image: require('../imgP/feijao.jpg'), valor: 6.0, },
 ];
-
-
 
 interface CardSliderProps {
   darkMode: boolean;
@@ -37,9 +31,9 @@ interface CardItem {
   valor: number;
 }
 
-export default function CardDescontoSlider({darkMode} : CardSliderProps) {
+export default function CardSlider({darkMode} : CardSliderProps) {
   const { width } = useWindowDimensions();
-  const CARD_WIDTH = width * 0.10;
+  const CARD_WIDTH = width * 0.6;
   const renderItem = ({ item }: { item: CardItem }) => (
     <View style={[styles.cardProduto, darkMode && styles.cardProdutoDark]}>
         <Image source={item.image} style={styles.imagemProduto } resizeMode="contain"/>
@@ -50,15 +44,9 @@ export default function CardDescontoSlider({darkMode} : CardSliderProps) {
           {item.title}
         </Text>
 
-        <View style={styles.precos}>
-          <Text style={[styles.precoDescontoProduto, darkMode && styles.precoDescontoProdutoDark]}>
-            R$ {item.valor.toFixed(2)}
-          </Text>
-
-          <Text style={[styles.precoProduto, darkMode && styles.precoProdutoDark]}>
-            R$ {(item.valor * 0.80).toFixed(2)}
-          </Text>
-        </View>
+        <Text style={[styles.precoProduto, darkMode && styles.precoProdutoDark]}>
+          R$ {item.valor.toFixed(2)}
+        </Text>
 
         <TouchableOpacity style={[styles.botao, darkMode && styles.botaoDark]}>
           <Text style={[styles.botaoTexto, darkMode && styles.botaoTextoDark]}>
@@ -125,12 +113,12 @@ const styles = StyleSheet.create({
 
   /* NOME */
   nomeProduto: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
     fontSize: 16,
     marginBottom: 5,
     color: '#000',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
   },
 
   nomeProdutoDark: {
@@ -139,34 +127,18 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
 
-  /* PREÇOS */
-  precos : {
+  /* PREÇO */
+  precoProduto: {
+    fontWeight: 'bold',
+    color: 'green',
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'space-evenly',
     flexDirection: 'row',
   },
 
-  precoProduto : {
-    fontWeight: 'bold',
-    color: 'green',
-  },
-
-  precoProdutoDark : {
+  precoProdutoDark: {
     fontWeight: 'bold',
     color: 'palegreen',
-  },
-
-  precoDescontoProduto : {
-    fontWeight: 'bold',
-    color: '#b81414',
-    textDecorationLine: 'line-through',
-  },
-
-  precoDescontoProdutoDark: {
-    fontWeight: 'bold',
-    color: 'red',
-    textDecorationLine: 'line-through',
   },
 
   /* BOTÃO */

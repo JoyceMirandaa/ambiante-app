@@ -1,28 +1,19 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  useWindowDimensions,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList, useWindowDimensions, Image,TouchableOpacity, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const data: CardItem[] = [
-  { id: '1', title: 'Leite 1L', image: require('../imgP/leite.jpeg'), valor: 2.99, },
-  { id: '2', title: 'Arroz 5kg', image: require('../imgP/arroz.jpg'), valor: 5.0, },
-  { id: '3', title: 'Feijão 1kg', image: require('../imgP/feijao.jpg'), valor: 6.0, },
-  { id: '4', title: 'Leite 1L', image: require('../imgP/leite.jpeg'), valor: 2.99, },
-  { id: '5', title: 'Arroz 5kg', image: require('../imgP/arroz.jpg'), valor: 5.0, },
-  { id: '6', title: 'Feijão 1kg', image: require('../imgP/feijao.jpg'), valor: 6.0, },
-  { id: '7', title: 'Leite 1L', image: require('../imgP/leite.jpeg'), valor: 2.99, },
-  { id: '8', title: 'Arroz 5kg', image: require('../imgP/arroz.jpg'), valor: 5.0, },
-  { id: '9', title: 'Feijão 1kg', image: require('../imgP/feijao.jpg'), valor: 6.0, },
-  { id: '10', title: 'Leite 1L', image: require('../imgP/leite.jpeg'), valor: 2.99, },
-  { id: '11', title: 'Arroz 5kg', image: require('../imgP/arroz.jpg'), valor: 5.0, },
-  { id: '12', title: 'Feijão 1kg', image: require('../imgP/feijao.jpg'), valor: 6.0, },
-];
+  { id: '1', title: 'Peito de Frango', image: require('@/app/imgP/carnes/peitofrango.png'), valor: 20.60, },
+  { id: '2', title: 'Coxa de Frango', image:require('@/app/imgP/carnes/coxaFrango.png'), valor: 10.30, },
+  { id: '3', title: 'Carne Suína', image: require('@/app/imgP/carnes/carneSuina.png'), valor: 19.50, },
+  { id: '4', title: 'Linguiça Toscana', image:require('@/app/imgP/carnes/linguicaToscana.png'), valor: 19.50, },
+  { id: '5', title: 'Pernil Suíno', image: require('@/app/imgP/carnes/pernilSuino.png'), valor: 20.60, },
+  { id: '6', title: 'Alcatra', image: require('@/app/imgP/carnes/alcatra.png'), valor: 51.93, },
+  { id: '7', title: 'Coxão Mole Suíno', image:require('@/app/imgP/carnes/coxaoMole.png'), valor: 46.34, },
+  { id: '8', title: 'Coxinha da Asa', image: require('@/app/imgP/carnes/coxinhaAsa.png'), valor: 14.90, },
+  { id: '9', title: 'Costeleta Suína', image: require('@/app/imgP/carnes/carneSuinaCosteleta.png'), valor: 23.13, },
+  { id: '10', title: 'Carne Bovina Moída', image: require('@/app/imgP/carnes/carneMoidaBovina.png'), valor: 20.60, },
+]
 
 
 
@@ -37,36 +28,32 @@ interface CardItem {
   valor: number;
 }
 
-export default function CardDescontoSlider({darkMode} : CardSliderProps) {
+export default function CardSliderVerduras({darkMode} : CardSliderProps) {
   const { width } = useWindowDimensions();
   const CARD_WIDTH = width * 0.10;
   const renderItem = ({ item }: { item: CardItem }) => (
-    <View style={[styles.cardProduto, darkMode && styles.cardProdutoDark]}>
-        <Image source={item.image} style={styles.imagemProduto } resizeMode="contain"/>
+        <View style={[styles.cardProduto, darkMode && styles.cardProdutoDark]}>
+            <Image source={item.image} style={styles.imagemProduto } resizeMode="contain"/>
 
 
-      <View style={styles.cardInfo}>
-        <Text style={[styles.nomeProduto , darkMode && styles.nomeProdutoDark]}>
-          {item.title}
-        </Text>
+          <View style={styles.cardInfo}>
+            <Text style={[styles.nomeProduto , darkMode && styles.nomeProdutoDark]}>
+              {item.title}
+            </Text>
 
-        <View style={styles.precos}>
-          <Text style={[styles.precoDescontoProduto, darkMode && styles.precoDescontoProdutoDark]}>
-            R$ {item.valor.toFixed(2)}
-          </Text>
+            <View>
+              <Text style={[styles.precoProduto, darkMode && styles.precoProdutoDark]}>
+                R$ {item.valor.toFixed(2)}
+              </Text>
+            </View>
 
-          <Text style={[styles.precoProduto, darkMode && styles.precoProdutoDark]}>
-            R$ {(item.valor * 0.80).toFixed(2)}
-          </Text>
+            <TouchableOpacity style={[styles.botao, darkMode && styles.botaoDark]}>
+              <Text style={[styles.botaoTexto, darkMode && styles.botaoTextoDark]}>
+                Comprar
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-
-        <TouchableOpacity style={[styles.botao, darkMode && styles.botaoDark]}>
-          <Text style={[styles.botaoTexto, darkMode && styles.botaoTextoDark]}>
-            Comprar
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
   );
 
   return (
@@ -75,10 +62,9 @@ export default function CardDescontoSlider({darkMode} : CardSliderProps) {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        horizontal
-        showsHorizontalScrollIndicator={false}
         snapToInterval={CARD_WIDTH + 20}
         decelerationRate="fast"
+        numColumns={2}
         contentContainerStyle={{ paddingHorizontal: 10 }}
       />
     </View>
@@ -98,16 +84,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     marginHorizontal: 10,
     borderWidth: 1,
-    borderColor: '#2c2c2c',
+    borderColor: '#a1e786ff',
     borderRadius: 8,
     overflow: 'hidden',
+    marginBottom: 15,
   },
 
   cardProdutoDark : {
-    backgroundColor: '#555555',
+    backgroundColor: '#464444ff',
     marginHorizontal: 10,
     borderWidth: 1,
-    borderColor: '#666666',
+    borderColor: '#4b6446ff',
     borderRadius: 8,
     overflow: 'hidden',
   },
@@ -142,9 +129,8 @@ const styles = StyleSheet.create({
   /* PREÇOS */
   precos : {
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
-    flexDirection: 'row',
   },
 
   precoProduto : {

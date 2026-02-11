@@ -7,6 +7,12 @@ export default function RootLayout(){
         // Todas as rotas precisam estar aqui
         <Stack>
             <Stack.Screen name="main" options={{ headerShown: false}} />
+            <Stack.Screen name="produtos" options={{ headerShown: false}} />
+            <Stack.Screen name="listaCompras" options={{ headerShown: false}} />
+            <Stack.Screen name="produtosGeral/carnes" options={{ headerShown: false}} />
+            <Stack.Screen name="produtosGeral/bebidas" options={{ headerShown: false}} />
+            <Stack.Screen name="produtosGeral/verduras" options={{ headerShown: false}} />
+            <Stack.Screen name="produtosGeral/congelados" options={{ headerShown: false}} />
         </Stack>
     )
 }

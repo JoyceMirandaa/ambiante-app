@@ -8,7 +8,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import Carousel from 'react-native-reanimated-carousel';
 import CardDescontoSlider from '../components/cardsDesconto';
-import CardSlider from '../components/cards';
+import CardSlider from '../components/cardsEmP/cardsbebidasP';
 import Perfil from '../components/perfil';
 import Header from '../components/header';
 
@@ -20,7 +20,7 @@ export const main = () => {
 
   const { width } = useWindowDimensions();
   const imageWidth = width;
-  const imageHeight = width * 0.3;
+  const imageHeight = width * 0.4;
   const [darkMode, setDarkMode] = useState(false);
   const [perfilAberto, setPerfilAberto] = useState(false);
 
@@ -61,13 +61,13 @@ export const main = () => {
                   parallaxScrollingOffset: 50,
                   }}/>
             </View>
-            <View>
-              <Text style={styles.tituloCard}>Descontos da semana</Text>
+            <View style={{marginTop: 20}}>
+              <Text style={[styles.tituloCard, darkMode && styles.tituloCardDark]}>Descontos da semana</Text>
               <CardDescontoSlider darkMode={darkMode}/>
             </View>
 
             <View>
-              <Text style={styles.tituloCard}>Produtos</Text>
+              <Text style={[styles.tituloCard, darkMode && styles.tituloCardDark]}>Produtos</Text>
               <CardSlider darkMode={darkMode}/>
             </View>
 
@@ -94,6 +94,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5
   },
+
+  tituloCardDark : {
+    color: '#ccc'
+  },
+
   banner:{
     display: 'flex',
     justifyContent: 'center',
