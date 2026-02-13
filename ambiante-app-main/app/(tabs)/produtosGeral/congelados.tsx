@@ -20,17 +20,23 @@ export default function Carnes() {
 
   return (
     <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={{ zIndex: 1 }}>
-        <Header onMudarTema={() => setDarkMode(!darkMode)} onAbrirPerfil={() => setPerfilAberto(true)} />
-      </View>
-    <SafeAreaView style={[styles.container, darkMode && styles.containerDark]}>
-
-      <View style={{marginBottom: 30}}>
-        <Text style={[styles.titulo, darkMode && styles.tituloDark]}>❄️ Congelados</Text>
-      <View style={{ borderBottomColor: '#7FBF7F', borderBottomWidth: 1, marginVertical: 10,}} />
-        <CardSliderCongelados darkMode={darkMode}/>
-      </View>
-    </SafeAreaView>
+        <View style={{ zIndex: 1 }}>
+          <Header onMudarTema={() => setDarkMode(!darkMode)} onAbrirPerfil={() => setPerfilAberto(true)} />
+        </View>
+      <SafeAreaView style={[styles.container, darkMode && styles.containerDark]}>
+        <View>
+          <View style={styles.botaoTitulo}>
+            <Link href={"/(tabs)/produtos"} asChild>
+            <Pressable style={({ pressed }) => [styles.botao, darkMode && styles.botaoDark, pressed && { transform: [{ scale: 0.99 }] }]}>
+              <Text style={[styles.botaoTexto, darkMode && styles.botaoTextoDark]}>🢠</Text>
+            </Pressable>
+            </Link>
+            <Text style={[styles.titulo, darkMode && styles.tituloDark]}> ❄️ Congelados</Text>
+          </View>
+          <View style={{ borderBottomColor: '#7FBF7F', borderBottomWidth: 1, marginVertical: 10,}} />
+          <CardSliderCongelados darkMode={darkMode}/>
+        </View>
+      </SafeAreaView>
     </ScrollView>
   );
 }
@@ -38,8 +44,6 @@ export default function Carnes() {
 const styles = StyleSheet.create({
    container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#f2f2f2',
   },
 
@@ -52,26 +56,52 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     color: '#fff',
   },
+  botaoTitulo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center', // centraliza o bloco
+    paddingVertical: 15,
+  },
+
   titulo: {
     fontFamily: 'LeagueSpartan_600SemiBold',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 35,
+    fontSize: 32,
     fontWeight: 'bold',
     color: 'rgb(32, 32, 32)',
-    marginTop: 20,
-    marginBottom: 25,
+    marginLeft: 20,
+    marginRight: 50,
   },
-   tituloDark: {
-    fontFamily: 'LeagueSpartan_600SemiBold',
-    display: 'flex',
+
+  tituloDark: {
+    color: 'rgb(229, 229, 229)',
+  },
+
+  botao: {
+    position: 'absolute', 
+    left: 15,
+    width: 30,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 35,
+  },
+   botaoDark: {
+    position: 'absolute', 
+    right: 20,
+    left: 30,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  botaoTexto: {
+    fontFamily: 'LeagueSpartan_600SemiBold',
+    fontSize: 30,
     fontWeight: 'bold',
-    color: 'rgb(229, 229, 229)',
-    marginTop: 20,
-    marginBottom: 25,
+    color: '#000',
+  },
+
+  botaoTextoDark: {
+    color: '#fff',
   },
 });
