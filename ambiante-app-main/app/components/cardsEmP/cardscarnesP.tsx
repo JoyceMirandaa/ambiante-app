@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import {  Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 import {  Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Inter_500Medium } from '@expo-google-fonts/inter';
+import { useCart } from '@/app/contexts/CartContext';
 
 
 const data: CardItem[] = [
@@ -34,8 +35,11 @@ export default function CardSlider({darkMode} : CardSliderProps) {
       Roboto_400Regular,
       Inter_500Medium
   });
+
   const CARD_WIDTH = 180;
   const ITEM_WIDTH = CARD_WIDTH + 20;
+  const { addToCart } = useCart();
+    
   const renderItem = ({ item }: { item: CardItem }) => (
     <View style={[styles.cardProduto, { width: CARD_WIDTH}, darkMode && styles.cardProdutoDark]}>
         <Image source={item.image} style={styles.imagemProduto } resizeMode="contain"/>
@@ -49,13 +53,7 @@ export default function CardSlider({darkMode} : CardSliderProps) {
           R$ {item.valor.toFixed(2)}
         </Text>
 
-        <Pressable
-          style={({ pressed }) => [
-            styles.botao,
-            darkMode && styles.botaoDark,
-            pressed && { transform: [{ scale: 0.99 }] }
-          ]}
-        >
+        <Pressable onPress={() => addToCart(item)} style={({ pressed }) => [styles.botao, darkMode && styles.botaoDark, pressed && { transform: [{ scale: 0.99 }] }]}>
           <Text style={[styles.botaoTexto, darkMode && styles.botaoTextoDark]}>Comprar</Text>
         </Pressable>
       </View>

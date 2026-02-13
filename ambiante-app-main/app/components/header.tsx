@@ -49,9 +49,11 @@ export const Header = ({onMudarTema, onAbrirPerfil} : HeaderProps) => {
             <Text style={styles.menuText}>Perfil 👤</Text>
           </Pressable>
           
+          <Link href="/(tabs)/listaCompras" asChild>
           <Pressable style={styles.menuItem}>
             <Text style={styles.menuText}>Lista de compras 📝</Text>
           </Pressable>
+          </Link>
           
           <Link href="/(tabs)/produtos" asChild>
             <Pressable style={styles.menuItem}>
