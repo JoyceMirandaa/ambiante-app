@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, useWindowDimensions, Image,TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useCart } from '@/app/contexts/CartContext';
 
 const data: CardItem[] = [
   { id: '1', title: 'Abacaxi 1un', image: require('@/app/imgP/hortifruti/abacaxi.png'), valor: 9.30, },
@@ -32,8 +31,6 @@ interface CardItem {
 export default function CardSliderHortifruti({darkMode} : CardSliderProps) {
   const { width } = useWindowDimensions();
   const CARD_WIDTH = width * 0.10;
-  const { addToCart } = useCart();
-
   const renderItem = ({ item }: { item: CardItem }) => (
         <View style={[styles.cardProduto, darkMode && styles.cardProdutoDark]}>
             <Image source={item.image} style={styles.imagemProduto } resizeMode="contain"/>
@@ -50,9 +47,9 @@ export default function CardSliderHortifruti({darkMode} : CardSliderProps) {
               </Text>
             </View>
 
-            <TouchableOpacity style={[styles.botao, darkMode && styles.botaoDark]} onPress={() => addToCart(item)}>
+            <TouchableOpacity style={[styles.botao, darkMode && styles.botaoDark]}>
               <Text style={[styles.botaoTexto, darkMode && styles.botaoTextoDark]}>
-                Comprar
+                🛒 Comprar
               </Text>
             </TouchableOpacity>
           </View>
@@ -90,7 +87,7 @@ const styles = StyleSheet.create({
     borderColor: '#a1e786ff',
     borderRadius: 8,
     overflow: 'hidden',
-    marginBottom: 15,
+    marginBottom: 10,
   },
 
   cardProdutoDark : {
